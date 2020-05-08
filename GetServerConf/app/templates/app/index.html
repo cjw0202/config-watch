@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+            <header class="main-header " id="header">
+                <nav class="navbar navbar-static-top navbar-expand-lg">
+                    <!-- Sidebar toggle button -->
+                    <button id="sidebar-toggler" class="sidebar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                    <!-- search form -->
+                    <span class="d-none d-md-inline-block mr-2" style="margin-left: 10px;"> 服务配置文件</span>
+                </nav>
+            </header>
+
+
+            <div class="container-fluid" style="margin-top: 10px;">
+                <!-- Example DataTables Card-->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-table"></i> 服务配置文件</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>服务名称</th>
+                                        <th>IP地址</th>
+                                        <th>同步模块名</th>
+                                        <th>配置文件名</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+				    {% for config in configs %}
+                                    <tr>
+                                        <td>{{ config.pk }}</td>
+                                        <td>{{ config.name }}</td>
+                                        <td>{{ config.server_ip }}</td>
+                                        <td>{{ config.model_name }}</td>
+                                        <td>{{ config.config }}</td>
+                                        <td><a type="button" class="btn btn-success btn-sm" href="{% url 'detail' config.pk %}">配置查看</a></td>
+                                    </tr>
+				    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

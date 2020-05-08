@@ -1,0 +1,9 @@
+aiocontextvars==0.2.2
+contextvars==2.4
+Django==2.1.8
+gunicorn==20.0.4
+immutables==0.11
+loguru==0.4.1
+pytz==2019.3
+sqlparse==0.3.0
+uWSGI==2.0.18

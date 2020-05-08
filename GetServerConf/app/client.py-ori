@@ -1,0 +1,57 @@
+#!/lingtian/opt/python363/bin/python3
+#_*_coding: utf-8_*_
+
+# Author: chengjiawei@shein.com
+# Date: 2020/02/17
+
+import subprocess
+import os
+
+
+class myRsync(object):
+	def __init__(self, configDir, configFile, dstConfDir, rsyncDir="/usr/bin/rsync"):
+		self.configDir = configDir
+		self.rsyncDir = rsyncDir
+		self.configFile = configFile
+		self.dstConfDir = dstConfDir
+
+	def rsyncCheck(func):
+		def inner(self, configFile='application.yml'):
+			rFlag = os.path.isfile(self.rsyncDir)
+			cFlag = os.path.isfile(self.configDir + '/' + configFile)
+			if rFlag and cFlag:
+				res = func(self, configFile='application.yml')
+				return res
+			elif not rFlag:
+				print("系统无rsync命令，请安装")
+			else:
+				print("无指定的配置文件位置")
+		return inner
+
+
+	def readConfig(self):
+		pass		
+			
+
+	@rsyncCheck
+	def getConfig(self, configFile='application.yml'):
+		cmd = [self.rsyncDir, '-avz', test@ + self.serverIp, '--include=/' + configFile, '--exclude=/*', self.dstConfDir]
+		print(cmd)
+		res = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8")
+		res.wait(5)
+		if res.poll() == 0:
+			for line in res.communicate():
+				print(line.strip())
+	
+		else:
+			print(res.returncode)
+			print("命令执行超时（1s）")
+	@rsyncCheck
+	def pullConfig(self):
+		pass
+	
+
+if __name__ == '__main__':
+
+	myrsync = myRsync(configDir='/lingtian/code/java/inbox-api-service', configFile='application.yml', dstConfDir='/lingtian/test_code/data')
+	myrsync.getConfig()
